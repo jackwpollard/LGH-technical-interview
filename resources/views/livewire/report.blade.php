@@ -12,8 +12,8 @@
         ]);
 
         var options = {
-          title: 'Contracts and Quotes per Day',
-          chartArea: {width: '60%'},
+          title: null,
+          chartArea: {width: '80%'},
           hAxis: {
             title: 'Date',
           },
@@ -23,9 +23,9 @@
           },
           seriesType: 'bars',
           series: {
-            0: {targetAxisIndex: 0, type: 'bars', color: '#1b9e77'}, // contracts
-            1: {targetAxisIndex: 0, type: 'bars', color: '#d95f02'}, // quotes
-            2: {targetAxisIndex: 1, type: 'line', color: '#7570b3'}  // weekly value
+            0: {targetAxisIndex: 0, type: 'bars', color: '#afaa00'}, // contracts
+            1: {targetAxisIndex: 0, type: 'bars', color: '#a1a1a1'}, // quotes
+            2: {targetAxisIndex: 1, type: 'line', color: '#000000'}  // weekly value
           }
         };
 
@@ -35,26 +35,32 @@
     </script>
   </head>
   <div>
-    <div id="chart_div" style="width: 800px; height: 500px;"></div>
-    <table border="1" cellpadding="8" cellspacing="0" style="margin-top: 30px; width: 800px;">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Contracts</th>
-                <th>Quotes</th>
-                <th>Weekly Value</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($data as $row)
+    <h2 class="text-2xl my-8">Contracts, Quotes and Value Report</h2>
+    <div id="chart_div" class="bg-white w-full h-[560px]"></div>
+    <h2 class="text-2xl my-8">Tabular Data</h2>
+    <div class="bg-white mb-5 py-5">
+        <table class="w-full text-center">
+            <thead>
                 <tr>
-                    <td>{{ $row->formatted_date }}</td>
-                    <td>{{ $row->total_contracts }}</td>
-                    <td>{{ $row->total_quotes }}</td>
-                    <td>£{{ number_format($row->weekly_value, 2) }}</td>
+                    <th>Date</th>
+                    <th>Contracts</th>
+                    <th>Quotes</th>
+                    <th>Weekly Value</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
-    <a href="{{ route('download-report-csv') }}" style="display: block; margin: 1em 0;">Download Table as CSV</a>
+            </thead>
+            <tbody>
+                @foreach($data as $row)
+                    <tr>
+                        <td class="py-1">{{ $row->formatted_date }}</td>
+                        <td class="py-1">{{ $row->total_contracts }}</td>
+                        <td class="py-1">{{ $row->total_quotes }}</td>
+                        <td class="py-1">£{{ number_format($row->weekly_value, 2) }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    <a href="{{ route('download-report-csv') }}" class="inline-block bg-black text-white px-5 py-3 text-xl rounded-md text-brand">
+        Download Table as CSV
+    </a>
   </div>
