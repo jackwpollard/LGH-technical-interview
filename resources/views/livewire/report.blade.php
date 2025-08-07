@@ -5,9 +5,9 @@
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Date', 'Contracts', 'Quotes'],
+          ['Date', 'Contracts', 'Quotes', 'Weekly Value'],
           @foreach($data as $row)
-            ['{{ $row->generated_at }}', {{ $row->total_contracts }}, {{ $row->total_quotes }}],
+            ['{{ $row->generated_at }}', {{ $row->total_contracts }}, {{ $row->total_quotes }}, {{ $row->weekly_value }}],
           @endforeach
         ]);
 
@@ -17,13 +17,19 @@
           hAxis: {
             title: 'Date',
           },
-          vAxis: {
-            title: 'Count'
+          vAxes: {
+            0: {title: 'Contracts / Quotes Count'},
+            1: {title: 'Weekly Value (£)'}
           },
-          colors: ['#1b9e77', '#d95f02']
+          seriesType: 'bars',
+          series: {
+            0: {targetAxisIndex: 0, type: 'bars', color: '#1b9e77'}, // contracts
+            1: {targetAxisIndex: 0, type: 'bars', color: '#d95f02'}, // quotes
+            2: {targetAxisIndex: 1, type: 'line', color: '#7570b3'}  // weekly value
+          }
         };
 
-        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
     </script>
