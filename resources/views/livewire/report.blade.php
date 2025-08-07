@@ -7,7 +7,7 @@
         var data = google.visualization.arrayToDataTable([
           ['Date', 'Contracts', 'Quotes', 'Weekly Value'],
           @foreach($data as $row)
-            ['{{ $row->generated_at }}', {{ $row->total_contracts }}, {{ $row->total_quotes }}, {{ $row->weekly_value }}],
+            ['{{ $row->formatted_date }}', {{ $row->total_contracts }}, {{ $row->total_quotes }}, {{ $row->weekly_value }}],
           @endforeach
         ]);
 

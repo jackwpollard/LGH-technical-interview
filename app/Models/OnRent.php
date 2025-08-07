@@ -12,4 +12,9 @@ class OnRent extends Model
     {
         return $this->hasMany(OnRentLines::class, 'onrent_id');
     }
+
+    public function getFormattedDateAttribute()
+    {
+        return \Carbon\Carbon::parse($this->generated_at)->format('d/m/Y');
+    }
 }
