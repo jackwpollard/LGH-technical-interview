@@ -34,6 +34,26 @@
       }
     </script>
   </head>
-  <body>
+  <div>
     <div id="chart_div" style="width: 800px; height: 500px;"></div>
-  </body>
+    <table border="1" cellpadding="8" cellspacing="0" style="margin-top: 30px; width: 800px;">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Contracts</th>
+                <th>Quotes</th>
+                <th>Weekly Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($data as $row)
+                <tr>
+                    <td>{{ $row->formatted_date }}</td>
+                    <td>{{ $row->total_contracts }}</td>
+                    <td>{{ $row->total_quotes }}</td>
+                    <td>£{{ number_format($row->weekly_value, 2) }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+  </div>
