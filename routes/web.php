@@ -8,3 +8,4 @@ Route::get('/', function () {
 });
 
 Route::get('/report', Report::class);
+Route::get('/report/csv', [Report::class, 'downloadCSV'])->name('download-report-csv');

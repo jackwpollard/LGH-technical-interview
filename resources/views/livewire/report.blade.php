@@ -56,4 +56,5 @@
             @endforeach
         </tbody>
     </table>
+    <a href="{{ route('download-report-csv') }}" style="display: block; margin: 1em 0;">Download Table as CSV</a>
   </div>

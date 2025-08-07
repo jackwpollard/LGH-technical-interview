@@ -23,4 +23,32 @@ class Report extends Component
             'data' => $this->data
         ]);
     }
+
+    public function downloadCSV()
+    {
+        $this->mount();
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="report.csv"',
+        ];
+
+        $callback = function() {
+            $handle = fopen('php://output', 'w');
+
+            fputcsv($handle, ['Date', 'Contracts', 'Quotes', 'Weekly Value']);
+
+            foreach ($this->data as $row) {
+                fputcsv($handle, [
+                    $row->formatted_date,
+                    $row->total_contracts,
+                    $row->total_quotes,
+                    number_format($row->weekly_value, 2)
+                ]);
+            }
+            fclose($handle);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
 }
