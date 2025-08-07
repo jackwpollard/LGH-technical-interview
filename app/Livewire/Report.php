@@ -12,9 +12,9 @@ class Report extends Component
 
     public function mount()
     {
-        $this->data = OnRent::select('generated_at', 'total_contracts', 'total_quotes')
-                            ->orderBy('generated_at')
-                            ->get();
+        $this->data = OnRent::where('generated_at', '>=', now()->subWeeks(3))
+            ->orderBy('generated_at')
+            ->get();
     }
 
     public function render()
